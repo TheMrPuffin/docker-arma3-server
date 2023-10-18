@@ -16,6 +16,20 @@ RUN set -x \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/* 
 
+# Download filebrowser #
+RUN curl -s https://api.github.com/repos/filebrowser/filebrowser/releases/latest \
+        | grep "linux-amd64-filebrowser.tar.gz" \
+        | grep "browser_download_url" \
+        | cut -d : -f 2,3 \
+        | tr -d , \
+        | sed 's/[[:blank:]]//g' \
+        | sed 's/.$//' \
+        | sed 's/^.//' \
+        | wget -O filebrowser.tar -qi - \
+    && tar -xf filebrowser.tar 'filebrowser' \
+    && mv filebrowser /home/steam/filebrowser \
+    && rm filebrowser.tar 
+
 RUN mkdir -p /home/steam/arma3/server/configs/profiles \
     && chown -R steam:steam /home/
 
