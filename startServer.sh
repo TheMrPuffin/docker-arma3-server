@@ -7,8 +7,10 @@ echo "Finished Initialisation..."
 
 if [ "$FILEMANAGER_ENABLED" = TRUE ]
 then
+  echo 'Generating password hash... from the env var of $FILEMANAGER_HASH...'
+  $FILEMANAGER_HASH=$( mkpasswd $FILEMANAGER_PASSWORD -m bcrypt )
   echo "Starting filemanager webserver..."
-  /home/steam/filebrowser -r /home/steam/arma3/server/ -d /home/steam/filebrowser.db -a 0.0.0.0 --noauth &
+  /home/steam/filebrowser -r /home/steam/arma3/server/ -d /home/steam/filebrowser.db -a 0.0.0.0 --password $FILEMANAGER_HASH &
 fi
 
 echo "Starting Arma 3 server..."

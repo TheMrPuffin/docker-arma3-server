@@ -3,6 +3,7 @@ FROM cm2network/steamcmd:root
 ENV STEAM_USER anonymous 
 ENV STEAM_PASSWORD anonymous
 ENV FILEMANAGER_ENABLED FALSE
+ENV FILEMANAGER_PASSWORD admin
 
 COPY startServer.sh /home/steam/arma3/
 COPY server.cfg /home/steam/arma3/
@@ -11,7 +12,7 @@ COPY server.cfg /home/steam/arma3/
 RUN set -x \ 
     && apt-get update \
     && apt-get install -y --no-install-recommends --no-install-suggests \
-        wget  \
+        wget whois  \
     && apt-get remove --purge -y \
     && apt-get clean autoclean \
     && apt-get autoremove -y \
