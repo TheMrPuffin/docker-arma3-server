@@ -6,6 +6,16 @@ ENV STEAM_PASSWORD anonymous
 COPY startServer.sh /home/steam/arma3/
 COPY server.cfg /home/steam/arma3/
 
+# Install additional packages #
+RUN set -x \ 
+    && apt-get update \
+    && apt-get install -y --no-install-recommends --no-install-suggests \
+        wget  \
+    && apt-get remove --purge -y \
+    && apt-get clean autoclean \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/* 
+
 RUN mkdir -p /home/steam/arma3/server/configs/profiles \
     && chown -R steam:steam /home/
 
