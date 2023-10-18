@@ -3,7 +3,15 @@ echo "Initialisation script..."
 
 /home/steam/steamcmd/steamcmd.sh +force_install_dir /home/steam/arma3/server +login $STEAM_USER $STEAM_PASSWORD +app_update 233780 +quit
 
-echo "Finished Initialisation and starting Arma 3 server..."
+echo "Finished Initialisation..."
+
+if [ "$FILEMANAGER_ENABLED" = TRUE ]
+then
+  echo "Starting filemanager webserver..."
+  /home/steam/filebrowser -r /home/steam/arma3/server/ -d /home/steam/filebrowser.db -a 0.0.0.0 --noauth &
+fi
+
+echo "Starting Arma 3 server..."
 
 ./arma3server_x64 -name="Dockerised Arma 3 Server" -profiles="/home/steam/arma3/server/configs/profiles/" -config="/home/steam/arma3/server.cfg" -port=2302 -world=empty
 

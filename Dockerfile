@@ -2,6 +2,7 @@ FROM cm2network/steamcmd:root
 
 ENV STEAM_USER anonymous 
 ENV STEAM_PASSWORD anonymous
+ENV FILEMANAGER_ENABLED FALSE
 
 COPY startServer.sh /home/steam/arma3/
 COPY server.cfg /home/steam/arma3/
